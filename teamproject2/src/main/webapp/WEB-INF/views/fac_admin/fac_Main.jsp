@@ -15,9 +15,15 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="css/ruang-admin.min.css" rel="stylesheet">
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <style>
+    .fac_view_btn{
+      width: 50px;
+      height: 30px;
+    }
+  </style>
   
-  
-  <c:if test="${session_flag != 'admin' }">
+    <c:if test="${session_flag != 'session_fmanager' }">
   <script type="text/javascript">
   	alert("잘못된 경로입니다")
   	location.href="login"
@@ -44,21 +50,21 @@
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
-        관리자
+        시설 관리자
       </div>
       <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
-          <span>회원 관리</span>
+          <span>시설 관리</span>
         </a>
         <div id="collapseBootstrap" class="collapse show" aria-labelledby="headingBootstrap"
           data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">회원 관리</h6>
-            <a class="collapse-item" href="admin_member_list">회원 목록</a>
-            <a class="collapse-item" href="admin_fac_list">시설 관리자 목록</a>
-            <a class="collapse-item" href="admin_blacklist">블랙 리스트</a>
+            <h6 class="collapse-header">시설 관리</h6>
+            <a class="collapse-item" href="fac_register">시설 등록</a>
+            <a class="collapse-item" href="fac_list">시설 목록</a>
+            <a class="collapse-item" href="fac_comment">후기 관리</a>
           </div>
         </div>
       </li>
@@ -66,33 +72,35 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
           aria-controls="collapseForm">
           <i class="fab fa-fw fa-wpforms"></i>
-          <span>게시판 관리</span>
+          <span>판매 관리</span>
         </a>
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">게시판 관리</h6>
-            <a class="collapse-item" href="freeboard_list">자유게시판 목록</a>
-            <a class="collapse-item" href="noriboard_list">노리게시판 목록</a>
+            <h6 class="collapse-header">판매 관리</h6>
+            <a class="collapse-item" href="fac_reserve">판매 목록</a>
+            <a class="collapse-item" href="fac_cancel">취소 목록</a>
           </div>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
-          <i class="fab fa-fw fa-wpforms"></i>
-          <span>공지사항 관리</span>
+          <i class="fas fa-fw fa-table"></i>
+          <span>정산 관리</span>
         </a>
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">공지사항 관리</h6>
-            <a class="collapse-item" href="noticeboard_list">공지 사항 게시판</a>
-            <a class="collapse-item" href="askboard_list">문의 사항 게시판</a>
-            <a class="collapse-item" href="eventboard_list">이벤트 게시판</a>
-            <a class="collapse-item" href="qnaboard_list">QNA 게시판</a>
+            <h6 class="collapse-header">정산 관리</h6>
+            <a class="collapse-item" href="simple-tables">정산 관리</a>
           </div>
         </div>
       </li>
-     
+      <li class="nav-item">
+        <a class="nav-link" href="fac_qna">
+          <i class="fas fa-fw fa-palette"></i>
+          <span>문의 관리</span>
+        </a>
+      </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         정보
@@ -101,12 +109,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
           aria-controls="collapsePage">
           <i class="fas fa-fw fa-columns"></i>
-          <span>관리자 정보</span>
+          <span>판매자 정보</span>
         </a>
         <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">관리자 정보</h6>
-            <a class="collapse-item" href="admin_mypage">관리자 정보</a>
+            <h6 class="collapse-header">판매자 정보</h6>
+            <a class="collapse-item" href="fm_mypage">마이페이지</a>
           </div>
         </div>
       </li>
@@ -154,7 +162,53 @@
         <!-- Topbar -->
         
         <!-- 구현 부분-->
-       
+        <DIV>
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">예약 취소 목록</h6>
+          </div>
+          <div class="table-responsive p-3">
+            <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+              <thead class="thead-light">
+                <tr>
+                  <th>예약 번호</th>
+                  <th>예약 회원 이름</th>
+                  <th>시설 이름</th>
+                  <th>종목</th>
+                  <th>취소 날짜</th>
+                  <th>예약 시간</th>
+                  <th>환불 사유</th>
+                  <th>VIEW</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>예약 번호</th>
+                  <th>예약 회원 이름</th>
+                  <th>시설 이름</th>
+                  <th>종목</th>
+                  <th>취소 날짜</th>
+                  <th>예약 시간</th>
+                  <th>환불 사유</th>
+                  <th>VIEW</th>
+                </tr>
+              </tfoot>
+            <!-- 데이터 들어오는 부분 -->
+              <tbody>
+                <tr>
+                  <td>7</td>
+                  <td>flash9479</td>
+                  <td>부천종합운동장</td>
+                  <td>풋살</td>
+                  <td>2021-09-03</td>
+                  <td>12~3</td>
+                  <td>일기 예보</td>
+                  <td><a href="fac_view">VIEW</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </DIV>
 
   
       </div>
@@ -178,6 +232,18 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/ruang-admin.min.js"></script>
+
+   <!-- Page level plugins -->
+   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+ 
+   <!-- Page level custom scripts -->
+   <script>
+     $(document).ready(function () {
+       $('#dataTable').DataTable(); // ID From dataTable 
+       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+     });
+   </script>
 </body>
 
 </html>

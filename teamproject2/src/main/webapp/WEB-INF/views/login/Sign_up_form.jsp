@@ -21,42 +21,42 @@
                    
                 </div>
                 <div id="register_input">
-                    <form id="customer" action="" class="input-group">
+                    <form id="customer" action="register_member" class="input-group" method="post">
                         <div>
-                            <input type="text" id="id" name="id" placeholder="ID">
+                            <input type="text" id="id" name="M_ID" placeholder="ID">
                             <button type="button" id="id_chk_btn">중복검사</button>
                             <hr>
-                            <input type="password" id="pw" name="pw" placeholder="PASSWORD">
+                            <input type="password" id="pw" name="M_PW" placeholder="PASSWORD">
                             <hr>
                             <input type="password" id="pw1" name="pw1" placeholder="PASSWORD 재입력">
                             <hr>
                             <span style="visibility: hidden;">비밀번호가 일치하지 않습니다</span>
-                            <input type="text" id="name" name="name" placeholder="이름">
+                            <input type="text" id="name" name="M_NAME" placeholder="이름">
                             <hr>
-                            <input type="text" id="nick" name="nick" placeholder="닉네임">
+                            <input type="text" id="nick" name="M_NICKNAME" placeholder="닉네임">
                             <hr>
-                            <input type="text" id="email" name="email" placeholder="이메일">
+                            <input type="text" id="email" name="M_eMAIL" placeholder="이메일">
                             <hr>
                             <span style="visibility: hidden;">이메일양식이 잘못되었습니다</span>
                             <input type="submit" id="submit_btn" value="SIGN IN">
                             <br>
                         </div>
                     </form>
-                    <form id="corporation" action="" class="input-group">
+                    <form id="corporation" action="register_fac" class="input-group" method="post">
                         <div>
-                            <input type="text" id="id" name="id" placeholder="ID">
+                            <input type="text" id="id" name="FM_ID" placeholder="ID">
                             <button type="button" id="id_chk_btn">중복검사</button>
                             <hr>
-                            <input type="password" id="pw" name="pw" placeholder="PASSWORD">
+                            <input type="password" id="pw" name="FM_PW" placeholder="PASSWORD">
                             <hr>
                             <input type="password" id="pw1" name="pw1" placeholder="PASSWORD 재입력">
                             <hr>
                             <span style="visibility: hidden;">비밀번호가 일치하지 않습니다</span>
-                            <input type="text" id="ins_name" name="ins_name" placeholder="시설이름">
+                            <input type="text" id="ins_name" name="FM_NAME" placeholder="시설이름">
                             <hr>
-                            <input type="text" id="ins_address" name="ins_address" placeholder="시설주소">
+                            <input type="text" id="ins_address" name="FM_ADD1" placeholder="시설주소">
                             <hr>
-                            <input type="text" id="ins_phone" name="ins_phone" placeholder="시설전화번호">
+                            <input type="text" id="ins_phone" name="FM_PHONE" placeholder="시설전화번호">
                             <hr>
                             <span style="visibility: hidden;">전화번호양식이 잘못되었습니다</span>
                             <input type="submit" id="submit_btn" value="SIGN IN">

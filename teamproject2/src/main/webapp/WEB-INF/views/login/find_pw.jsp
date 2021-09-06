@@ -9,7 +9,7 @@
     <body>
         <div class="wrap">
             <div class="form-wrap">
-                <h1 id="title_h1">아이디 찾기</h1>
+                <h1 id="title_h1">비밀번호 찾기</h1>
                 <div class="button-wrap">
                     <div id="btn"></div>
                     <ul>
@@ -21,9 +21,9 @@
                    
                 </div>
                 <div id="register_input">
-                    <form id="find_id" action="find_member" class="input-group" method="post">
+                    <form id="find_id" action="find_member_pw" class="input-group" method="post">
                        <div>
-                        <input type="text" id="nick" name="nick" placeholder="닉네임">
+                        <input type="text" id="name" name="name" placeholder="아이디">
                         <hr>
                         <input type="text" id="email" name="email" placeholder="이메일">
                         <hr>
@@ -31,26 +31,25 @@
                         <br>
                         <span><a href="/login" id="find_id">로그인 페이지로 이동</a></span>
                         <br>
-                        <span><a href="Find_PW" id="find_pw">비밀번호 찾기</a></span>
+                        <span><a href="Find" id="find_pw">아이디 찾기</a></span>
                     </div>
                     </form>
-                    <form id="find_pw" action="find_fmanager" class="input-group" method="post">
+                    <form id="find_pw" action="find_fmanager_pw" class="input-group" method="post">
                         <div>
-                            <input type="text" id="name" name="name" placeholder="시설이름">
+                            <input type="text" id="id" name="id" placeholder="아이디">
                             <hr>
-                            <input type="text" id="phone" name="phone" placeholder="시설 전화번호">
+                            <input type="text" id="phone" name="phone" placeholder="번호">
                             <hr>
                             <input type="submit" class="submit_btn" value="검색">
                             <br>
-							<span><a href="/login" id="find_id">로그인 페이지로 이동</a></span> 
-							<br>
-                        	<span><a href="Find_PW" id="find_pw">비밀번호 찾기</a></span>                           
+                        	<span><a href="/login" id="find_id">로그인 페이지로 이동</a></span>
+                        	<br>
+                     	   <span><a href="Find" id="find_pw">아이디 찾기</a></span>
                            </div>
                     </form>
                 </div>
             </div>
         </div>
-        
         
         <script>
             var x = document.getElementById("find_id");

@@ -49,6 +49,22 @@
          <groupId>javax.servlet</groupId>
          <artifactId>jstl</artifactId>
       </dependency>
+      
+      <!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
+		<!-- Oracle Driver -->
+		<dependency>
+			<groupId>ojdbc</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>6</version>
+			<scope>system</scope>
+			<systemPath>C:\Users\home\git\tes\teamproject2\src\main\webapp\WEB-INF\lib\ojdbc6_g.jar</systemPath>
+		</dependency>
    
 		
 	</dependencies>

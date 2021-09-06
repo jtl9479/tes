@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  <mapper namespace="com.example.teamproject.Mapper.LoginMapper">
+  
+  	<!-- 회원 로그인  -->
+  	<select id="member_login_check" resultType="com.example.teamproject.Vo.MemberVo">
+  	
+  		select * from member where M_ID=#{M_ID} and M_PW=#{M_PW}
+  	
+  	</select>
+  
+  	<!-- 시설 관리자 로그인  -->
+  	<select id="Fmanager_login_check" resultType="com.example.teamproject.Vo.FmanagerVo">
+  	
+  		select * from fmanager where FM_ID=#{FM_ID} and FM_PW=#{FM_PW}
+  	
+  	</select>
+  	
+  	<!-- 회원 회원 가입  -->
+  	<insert id="member_register_check">
+  	
+  	insert into member(m_id,m_pw,m_name,m_nickname,m_email) values(#{M_ID},#{M_PW},#{M_NAME},#{M_NICKNAME},#{M_eMAIL})
+  	
+  	</insert>
+  	
+  	<!-- 시설 관리자 회원 가입  -->
+  	<insert id="fac_register_check">
+  	
+  	insert into FMANAGER(FM_ID,FM_PW,FM_NAME,FM_ADD1,FM_PHONE) values(#{FM_ID},#{FM_PW},#{FM_NAME},#{FM_ADD1},#{FM_PHONE})
+  	
+  	</insert>
+  	
+  	<!-- 회원 아이디 찾기-->
+  	<select id="member_ld_find_check" resultType="com.example.teamproject.Vo.MemberVo">
+  	
+  		select * from member where M_NICKNAME=#{M_NICKNAME} and M_eMAIL=#{M_eMAIL}
+  	
+  	</select>
+  	
+  	<!-- 회원 비밀번호 찾기-->
+  	<select id="member_pw_find_check" resultType="com.example.teamproject.Vo.MemberVo">
+  	
+  		select * from member where M_NAME=#{M_NAME} and M_eMAIL=#{M_eMAIL}
+  	
+  	</select>
+  	
+  	<!-- 시설 아이디 찾기-->
+  	<select id="fac_ld_find_check" resultType="com.example.teamproject.Vo.FmanagerVo">
+  	
+  			select * from fmanager where FM_NAME=#{fM_NAME} and FM_PHONE=#{fM_PHONE}
+  	
+  	</select>
+  	
+  	<!-- 시설 아이디 찾기-->
+  	<select id="fac_pw_find_check" resultType="com.example.teamproject.Vo.FmanagerVo">
+  	
+  			select * from fmanager where FM_ID=#{fM_ID} and FM_PHONE=#{fM_PHONE}
+  	
+  	</select>
+
+  	<!-- 관리자 로그인 -->
+  	<select id="admin_login" resultType="com.example.teamproject.Vo.AdminVo">
+  	
+  			select * from admin where A_ID=#{a_ID} and A_PW=#{a_PW}
+  	
+  	</select>
+  	
+  
+  </mapper>

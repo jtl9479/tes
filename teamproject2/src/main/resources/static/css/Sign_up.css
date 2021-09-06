@@ -4,16 +4,16 @@
     font-family: sans-serif;
 }
 .wrap {
-    height: 100%;
     width: 100%;
     background-image: url(../img/main.jpg);
+    height: 900px;
     background-position: center;
     background-size: cover;
     position: absolute;
 }
 .form-wrap {
     width: 420px;
-    height: 850px;
+    height: 800px;
     position: relative;
     margin: 2% auto;
     background: #fff;

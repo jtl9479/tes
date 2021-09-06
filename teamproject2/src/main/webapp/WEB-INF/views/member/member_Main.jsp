@@ -14,16 +14,14 @@
   <title>Team of Yul</title>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="css/ruang-admin.min.css" rel="stylesheet">
+  <link href="css/member/ruang-admin.min.css" rel="stylesheet">
   
-  
-  <c:if test="${session_flag != 'admin' }">
-  <script type="text/javascript">
-  	alert("잘못된 경로입니다")
-  	location.href="login"
-  </script>
-  </c:if>
-  
+      <c:if test="${session_flag != 'session_member' }">
+ 		 <script type="text/javascript">
+  	 	 alert("잘못된 경로입니다")
+  		 location.href="login"
+  		 </script>
+  	</c:if>
   
 </head>
 
@@ -31,87 +29,50 @@
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
         </div>
         <div class="sidebar-brand-text mx-3">로고</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>보류</span></a>
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
-        관리자
+        회원
       </div>
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
-          aria-expanded="true" aria-controls="collapseBootstrap">
+
+      <li class="nav-item">
+        <a class="nav-link" href="member_Register">
           <i class="far fa-fw fa-window-maximize"></i>
-          <span>회원 관리</span>
+          <span>마이페이지</span>
         </a>
-        <div id="collapseBootstrap" class="collapse show" aria-labelledby="headingBootstrap"
-          data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">회원 관리</h6>
-            <a class="collapse-item" href="admin_member_list">회원 목록</a>
-            <a class="collapse-item" href="admin_fac_list">시설 관리자 목록</a>
-            <a class="collapse-item" href="admin_blacklist">블랙 리스트</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
-          aria-controls="collapseForm">
-          <i class="fab fa-fw fa-wpforms"></i>
-          <span>게시판 관리</span>
-        </a>
-        <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">게시판 관리</h6>
-            <a class="collapse-item" href="freeboard_list">자유게시판 목록</a>
-            <a class="collapse-item" href="noriboard_list">노리게시판 목록</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-          aria-controls="collapseTable">
-          <i class="fab fa-fw fa-wpforms"></i>
-          <span>공지사항 관리</span>
-        </a>
-        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">공지사항 관리</h6>
-            <a class="collapse-item" href="noticeboard_list">공지 사항 게시판</a>
-            <a class="collapse-item" href="askboard_list">문의 사항 게시판</a>
-            <a class="collapse-item" href="eventboard_list">이벤트 게시판</a>
-            <a class="collapse-item" href="qnaboard_list">QNA 게시판</a>
-          </div>
-        </div>
-      </li>
-     
-      <hr class="sidebar-divider">
-      <div class="sidebar-heading">
-        정보
-      </div>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-          aria-controls="collapsePage">
-          <i class="fas fa-fw fa-columns"></i>
-          <span>관리자 정보</span>
-        </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">관리자 정보</h6>
-            <a class="collapse-item" href="admin_mypage">관리자 정보</a>
-          </div>
-        </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="ui-colors.html">
+          <i class="fab fa-fw fa-wpforms"></i>
+          <span>예약확인/결제확인</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="ui-colors.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>충전</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="member_qua" class="nav-link" >
+          <i class="fas fa-fw fa-palette"></i>
+          <span>관리자 문의</span>
+        </a>
+      </li>
       <hr class="sidebar-divider">
+
       <div class="version" id="version-ruangadmin"></div>
     </ul>
     <!-- Sidebar -->
@@ -154,8 +115,7 @@
         <!-- Topbar -->
         
         <!-- 구현 부분-->
-       
-
+  
   
       </div>
 

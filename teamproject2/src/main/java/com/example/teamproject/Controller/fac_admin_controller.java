@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class fac_admin_controller {
 
 	//시설 관리자 예약 취소 목록
+	@GetMapping("fac_Main")
+	public String fac_Main() {
+		return "/fac_admin/fac_Main";
+	}
+	
+	//시설 관리자 예약 취소 목록
 	@GetMapping("fac_cancel")
 	public String fac_cancel() {
 		return "/fac_admin/fac_cancel";
