@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.example.pro.Mapper.Mmapper">
+    
+    <select id="BoardList" resultType="com.example.pro.Vo.listVo">
+    
+    	select * from board
+    
+    </select>
+    
+    <select id="BoardListView" resultType="com.example.pro.Vo.listVo">
+    
+    	select * from board where bid = #{bid}
+    
+    </select>
+
+	<insert id="BoardListWrite">
+	
+		insert into board values(BOARD_SEQ.nextval,#{btitle},#{bcontent},#{bname},0,board_seq.currval,0,sysdate,#{bupload},0)
+	
+	</insert>
+  
+    <select id="BoardListModify" resultType="com.example.pro.Vo.listVo">
+    
+    	select * from board where bid = #{bid}
+    
+    </select>
+    
+    <update id="BoardListmModifyCheck">
+    
+    	update board set btitle=#{btitle},bcontent=#{bcontent} where bid= #{bid}
+    
+    </update>
+    
+    
+    </mapper>
