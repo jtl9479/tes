@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.teamproject.Mapper.ReservationMapper">
+	<select id="selectFinfoCount" resultType="int">
+	select count(*) from finfo where finfo_sport like '%'||#{sportCategory}||'%' and
+				finfo_name like '%'||#{searchWord}||'%' and finfo_add1 like '%'||#{searchCategory}||'%'		
+	</select>
+	<!--시설 리스트 가져오기  -->
+	<select id="selectFinfoList" resultType="com.example.teamproject.Vo.Fac_admin_Vo">
+		select * from (select rownum rnum, b.* from(select * from finfo where finfo_sport like '%'||#{sportCategory}||'%' and
+				finfo_name like '%'||#{searchWord}||'%' and finfo_add1 like '%'||#{searchCategory}||'%')b)
+				where rnum between #{startRow} and #{endRow}		
+	</select>
+	
+	<select id="selectfinfoView" resultType="com.example.teamproject.Vo.Fac_admin_Vo">
+		select * from finfo where finfo_no = #{finfo_no}
+	</select>
+	
+	<select id="selectMember" resultType="com.example.teamproject.Vo.MemberVo">
+		select * from member where m_id = #{id}
+	</select>
+	<select id="reserDateCheck" resultType="String">
+		select reser_time from reservation where reser_date = to_date(#{reserDate},'yyyy-mm-dd') and reser_status = '0' and finfo_no = #{finfo_no}
+	</select>
+	<insert id="reservation">
+		 <selectKey keyProperty="reser_no" order="BEFORE" resultType="int" >
+			select reser_seq.nextval from dual
+		</selectKey> 
+		insert into reservation values(#{reser_no},#{finfo_no},#{m_no},to_date(#{reser_date},'yyyy-mm-dd'),sysdate,#{reser_time},'0')
+	</insert>
+	
+	<select id="selectResult" resultType="com.example.teamproject.Vo.ReservationVo">
+		select reser_no,finfo_no,m_no,m_nickname,finfo_name,finfo_price,to_char(reser_date,'yyyy-mm-dd') reser_date,reser_time,reser_status from reservation join finfo using(finfo_no) join member using(m_no) where reser_no = #{reser_no}
+	</select>
+	<select id="getReservationFee" resultType="int">
+		select finfo_price from finfo where finfo_no = #{finfo_no}
+	</select>
+	
+	<update id="chargeFee">
+		update member set m_point = m_point-#{fee} where m_no = #{m_no} 
+	</update>
+	
+	<select id="getFmId" resultType="String">
+		select fm_id from finfo where finfo_no = #{finfo_no}
+	</select>
+	
+	<update id="getFee">
+		update fmanager set fm_point = fm_point + #{fee} where fm_id = #{fm_id}
+	</update>
+	
+	<update id="cancelResrvation">
+		update reservation set reser_status = '1' where reser_no = #{reser_no}
+	</update>
+	<insert id="insertPay">
+		insert into payment values(pay_seq.nextval,#{reser_no},#{m_no},#{fee},sysdate,'0')
+	</insert>
+	
+	<select id="selectEventInfo" resultType="com.example.teamproject.Vo.EventBoardVo">
+		select * from (select rownum rnum, b.* from (select eb_num,eb_title,eb_content,to_char(eb_date,'yyyy-mm-dd')eb_date,img_name from event_board join event_board_images using(eb_num) order by eb_num desc)b) where rnum between 1 and 6
+	</select>
+	
+	<select id="selectNoticeInfo" resultType="com.example.teamproject.Vo.NoticeBoardVo">
+		select * from ( select rownum rnum ,b.* from (select n_num,n_title,to_char(n_date,'yyyy-mm-dd') n_date from notice_board order by n_num desc)b) where rnum between 1 and 7
+	</select>
+	
+	<select id="selectMemberInfo" resultType="com.example.teamproject.Vo.MemberVo">
+		select * from member where m_no = #{m_no}
+	</select>
+	
+	<select id="selectPaymentInfo" resultType="com.example.teamproject.Vo.PaymentVo">
+		select * from payment where reser_no = #{reser_no}
+	</select>
+	
+	<select id="selectImgName" resultType="String">
+		select finfo_pic1 from finfo where finfo_no = #{finfo_no}
+	</select>
+	
+	<update id="cancelPayment">
+		update payment set pay_status = '1' where reser_no = #{reser_no}
+	</update>
+	
+	<select id="selectRefundFee" resultType="int">
+		select pay_price from payment where reser_no = #{reser_no}
+	</select>
+	
+	<select id="selectRefundFmId" resultType="String">
+		select fm_id from reservation join finfo using(finfo_no) where reser_no = #{reser_no}
+	</select>
+	
+	<update id="chargeRefundFee">
+		update fmanager set fm_point = fm_point + #{refundFee} where fm_id = #{fm_id}
+	</update>
+	
+	<select id="selectRefundM_no" resultType="int">
+		select m_no from reservation where reser_no = #{reser_no}
+	</select>
+	
+	<update id="getRefundFee">
+		update member set m_point = m_point + #{refundFee} where m_no = #{m_no}
+	</update>
+	
+	<insert id="insertRefund">
+		insert into refund values(refund_seq.nextval,#{reser_no},#{m_no},#{refundFee},sysdate)
+	</insert>
+	<select id="selectRefundInfo" resultType="com.example.teamproject.Vo.RefundVo">
+		select * from refund where reser_no = #{reser_no}
+	</select>
+	
+	<select id="selectSportList" resultType="String">
+		<if test='searchArea == "전체"'>
+			select distinct(finfo_sport) from finfo 
+		</if>
+		<if test='searchArea != "전체"'>
+			select distinct(finfo_sport) from finfo where finfo_add1 like '%'||#{searchArea}||'%' 
+		</if>
+	</select>
+	
+	<select id="selectFinfoName" resultType="com.example.teamproject.Vo.Fac_admin_Vo">
+		<if test = 'searchArea == "전체"'>
+			select finfo_name,finfo_no from finfo where finfo_sport =  #{sportCategory}
+		</if>
+		<if test='searchArea != "전체"'>
+			select finfo_name,finfo_no from finfo where finfo_sport = #{sportCategory} and finfo_add1 like '%'||#{searchArea}||'%' 
+		</if>
+	</select>
+	
+	<select id="selectFinfo_Phone" resultType="String">
+		select fm_phone from fmanager where fm_id = #{fm_id}
+	</select>
+	
+	<insert id="writeReview">
+		<selectKey keyProperty="r_no" order="BEFORE" resultType="int" >
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review values(#{r_no},#{m_no},#{finfo_no},sysdate,#{r_content},#{r_rate})
+	</insert>
+	
+	<select id="selectOneReview" resultType="com.example.teamproject.Vo.ReviewVo">
+		select m_nickname,to_char(r_date,'yyyy-mm-dd') r_date,r_content,r_rate from review join member using(m_no) where r_no = #{r_no}
+	</select>
+	
+	<select id="selectAllReview" resultType="com.example.teamproject.Vo.ReviewVo">
+		select m_nickname,to_char(r_date,'yyyy-mm-dd') r_date,r_content,r_rate from review join member using(m_no) where finfo_no = #{finfo_no} order by r_no asc
+	</select>
+	
+	<select id="selectReviewCount" resultType="int">
+		select count(*) from review where finfo_no = #{finfo_no}
+	</select>	
+ </mapper>

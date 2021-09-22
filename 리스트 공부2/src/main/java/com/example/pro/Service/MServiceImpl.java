@@ -32,12 +32,19 @@ public class MServiceImpl implements MService{
 	}
 
 	//게시판 뷰
+	//조회수 증가
 	@Override
 	public Map<String, Object> BoardListView(String bid) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 
+		mmapper.BoardListhit(bid);
 		listVo listVo = new listVo();
+		System.out.println(listVo.getBname());
+		int result = 0;
+		System.out.println(result);
+		System.out.println("조회수");
+		System.out.println(listVo.getBhit());
 		
 		listVo = mmapper.BoardListView(bid);
 
@@ -81,6 +88,37 @@ public class MServiceImpl implements MService{
 		mmapper.BoardListmModifyCheck(listVo);
 			
 		return;
+	}
+
+	//게시물 삭제
+	@Override
+	public int BoardListdelete(listVo listVo) {
+
+		int result = 0;
+		
+		result = mmapper.BoardListdelete(listVo);
+		
+		return result;
+	}
+
+	//답글 페이지 이동
+	@Override
+	public Map<String, Object> BoardListReply(listVo listVo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		listVo = mmapper.BoardListReply(listVo);
+
+		map.put("listVo", listVo);
+		
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> BoardListReply_Check(listVo listVo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

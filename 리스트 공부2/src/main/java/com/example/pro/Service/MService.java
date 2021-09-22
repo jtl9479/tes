@@ -21,5 +21,14 @@ public interface MService {
 	//리스트 수정 페이지 등록
 	void BoardListmModifyCheck(listVo listVo);
 
+	//리스트 게시물 삭제
+	int BoardListdelete(listVo listVo);
+
+	//답글 페이지 이동
+	Map<String, Object> BoardListReply(listVo listVo);
+
+	//답글 등록
+	Map<String, Object> BoardListReply_Check(listVo listVo);
+
 
 }

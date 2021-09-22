@@ -13,15 +13,16 @@
 </head>
 <body>
 <section>
-    <h1>게시글수정</h1>
+    <h1>게시글 답글 달기</h1>
     <hr>
 
-    <form action="reply.do" name="reply" method="post">
+    <form action="reply" name="reply" method="post">
       <table>
-      <input type="hidden" name="bId" value="test">
-      <input type="hidden" name="bGroup" value="test">
-      <input type="hidden" name="bStep" value="test">
-      <input type="hidden" name="bIndent" value="test">
+      <!--답변 달기에 필요한 것들 bid,bgroup,bstep,bindent  -->
+      <input type="hidden" name="bid" value="${map.listVo.bid }">
+      <input type="hidden" name="bgroup" value="${map.listVo.bgroup }">
+      <input type="hidden" name="bstep" value="${map.listVo.bstep }">
+      <input type="hidden" name="bindent" value="${map.listVo.bindent }">
         <colgroup>
           <col width="15%">
           <col width="85%">
@@ -29,20 +30,20 @@
         <tr>
           <th>작성자</th>
           <td>
-            <input type="text" name="bName">
+            <input type="text" name="bname" value="${map.listVo.bname }" readonly="readonly">
           </td>
         </tr>
         <tr>
           <th>제목</th>
           <td>
-            <input type="text" name="bTitle" value="<답변> test">
+            <input type="text" name="btitle" value="${map.listVo.btitle}<답변> test">
           </td>
         </tr>
         <tr>
           <th>내용</th>
           <td>
-<textarea name="bContent" cols="50" rows="10">
-
+<textarea name="bcontent" cols="50" rows="10">
+${map.listVo.bcontent}
 ---------------------------
 [답글]
 test
@@ -59,7 +60,7 @@ test
       <hr>
       <div class="button-wrapper">
         <button type="submit" class="write">답변완료</button>
-        <button type="button" class="cancel" onclick="javascript:location.href='list.do'">취소</button>
+        <button type="button" class="cancel" onclick="javascript:location.href='list'">취소</button>
       </div>
     </form>
 

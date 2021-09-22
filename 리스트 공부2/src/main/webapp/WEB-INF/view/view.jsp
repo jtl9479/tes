@@ -46,9 +46,9 @@
     </table>
 
     <a href="list"><div class="list">목록</div></a>
-    <a href=""><div class="list">삭제</div></a>
+    <a href="delete?bid=${map.listVo.bid}"><div class="list">삭제</div></a>
     <a href="modify?bid=${map.listVo.bid}"><div class="list">수정</div></a>
-    <a href=""><div class="list">답변달기</div></a>
+    <a href="reply?bid=${map.listVo.bid}"><div class="list">답변달기</div></a>
   </section>
 </body>
 </html>

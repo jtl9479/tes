@@ -15,6 +15,12 @@
     	select * from board where bid = #{bid}
     
     </select>
+    
+    <update id="BoardListhit">
+    
+    	update board set bhit = bhit+1 where bid= #{bid}
+    
+    </update>
 
 	<insert id="BoardListWrite">
 	
@@ -34,5 +40,16 @@
     
     </update>
     
+    <delete id="BoardListdelete">
+    
+    	delete board where bid = #{bid}
+    
+    </delete>
+    
+        <select id="BoardListReply" resultType="com.example.pro.Vo.listVo">
+    
+    	select * from board where bid = #{bid}
+    
+    </select>
     
     </mapper>

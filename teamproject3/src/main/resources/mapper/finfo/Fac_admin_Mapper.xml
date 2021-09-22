@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.teamproject.Mapper.Fac_admin_Mapper">
+	
+	<!-- insertList -->
+	<insert id="insertFile">
+		<selectKey resultType="int" keyProperty="finfo_no" order="BEFORE">
+			select finfo_seq.nextval from dual
+		</selectKey>
+		insert into finfo values(
+		#{finfo_no},#{fm_id},#{finfo_name},#{finfo_sport},#{finfo_add1},
+		#{finfo_price},#{finfo_people},#{finfo_detail},
+		#{finfo_pic1},#{finfo_pic2},#{finfo_pic3},#{finfo_pic4},#{finfo_pic5})
+	</insert>
+	
+	
+	<!-- selectAllList -->
+	<select id="selectAllList" resultType="com.example.teamproject.Vo.Fac_admin_Vo">
+		select * from finfo where fm_id = #{fm_id}
+	</select>
+	
+	
+    <!-- //게시글 전체리스트 -->
+	<select id="selectOneList" resultType="com.example.teamproject.Vo.Fac_admin_Vo">
+		select * from finfo where finfo_no= #{finfo_no}
+	</select>
+	
+	<!-- modify -->
+	<update id="updateOneList">
+		update finfo set finfo_no=#{finfo_no},finfo_name=#{finfo_name},finfo_sport=#{finfo_sport},
+		       finfo_add1=#{finfo_add1},finfo_price=#{finfo_price},finfo_people=#{finfo_people},
+		       finfo_detail=#{finfo_detail},finfo_pic1=#{finfo_pic1},finfo_pic2=#{finfo_pic2},
+		       finfo_pic3=#{finfo_pic3},finfo_pic4=#{finfo_pic4},finfo_pic5=#{finfo_pic5}
+		where finfo_no=#{finfo_no}
+	</update>
+
+	<!-- delete -->
+	<update id="deleteOneList">
+		delete finfo where finfo_no =${finfo_no}
+	</update>
+	<select id="fmanagerMypage" resultType="com.example.teamproject.Vo.FmanagerVo">
+		select * from fmanager where fm_id=#{fm_id}
+	</select>
+	
+	 <!-- 시설관리자 페이지 수정등록 -->
+   <update id="fm_Modify">
+   		update fmanager set fm_name=#{fm_name}, fm_add1=#{fm_add1}, fm_phone=#{fm_phone}, fm_cor_num=#{fm_cor_num} where fm_id=#{fm_id}
+   </update>
+   
+   <select id="selectReserveList" resultType="com.example.teamproject.Vo.ReservationVo">
+   		select reser_no,m_name,finfo_name,finfo_sport,to_char(reser_date,'yyyy-mm-dd') reser_date,reser_time,reser_status from finfo join fmanager using(fm_id) join reservation using (finfo_no) join member using(m_no) where fm_id = #{fm_id}
+   </select>
+</mapper>
